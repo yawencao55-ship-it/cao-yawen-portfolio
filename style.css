@@ -674,6 +674,34 @@ body.winter .contact-ground {
 }
 #messageForm textarea { resize: vertical; min-height: 80px; }
 #messageForm .btn { width: 100%; margin-top: 4px; }
+.hp-field {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+}
+.captcha-box {
+  min-height: 65px;
+  margin: 6px 0 10px;
+}
+.message-status {
+  min-height: 20px;
+  margin: 0 0 8px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+.message-status.error { color: #b83a3a; }
+.message-status.success { color: #2f7e5f; }
+#msgSubmitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
 .message-success {
   text-align: center; padding: 30px 0;
 }

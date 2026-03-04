@@ -1,0 +1,17 @@
+name = "portfolio-message-api"
+main = "src/index.js"
+compatibility_date = "2026-03-04"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "portfolio_messages"
+database_id = "a7eb55a5-2da8-4830-9883-95448c316f71"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "d8bf58380c60495583f7b52877ad040f"
+
+[vars]
+ALLOWED_ORIGINS = "https://yawencao55-ship-it.github.io"
+RATE_LIMIT_MAX = "5"
+RATE_LIMIT_WINDOW_SEC = "600"

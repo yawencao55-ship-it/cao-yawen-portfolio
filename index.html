@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://*.workers.dev; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://challenges.cloudflare.com; upgrade-insecure-requests; block-all-mixed-content">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>曹亚雯 CAO YAWEN Portfolio</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 </head>
-<body class="spring">
+<body class="spring" data-api-base="https://portfolio-message-api.yawencao55.workers.dev" data-turnstile-sitekey="0x4AAAAAACl9tzwBpieRjx42">
 <!-- SVG Filters -->
 <svg style="position:absolute;width:0;height:0">
   <defs>
@@ -39,7 +41,7 @@
     <img id="landingTree" class="landing-tree" src="" alt="季节树" />
     <h1 class="landing-title-cn">曹亚雯</h1>
     <h2 class="landing-title-en">CAO YAWEN</h2>
-    <button id="enterBtn" onclick="enterSite()">进入 ENTER</button>
+    <button id="enterBtn">进入 ENTER</button>
   </div>
 </div>
 <!-- ===== MAIN SITE ===== -->
@@ -80,7 +82,7 @@
       <a href="#hero" class="nav-logo">
         <svg viewBox="0 0 40 40" width="36" height="36"><rect x="17" y="18" width="6" height="20" rx="2" fill="#8B6F47"/><circle cx="20" cy="14" r="10" fill="#a8d8a0" opacity="0.7" filter="url(#watercolor-edge)"/><circle cx="15" cy="12" r="6" fill="#c8e6c0" opacity="0.5"/><circle cx="25" cy="11" r="7" fill="#b8d8b0" opacity="0.5"/></svg>
       </a>
-      <button class="nav-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+      <button class="nav-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
       <ul id="navLinks" class="nav-links">
@@ -310,21 +312,21 @@
       <!-- 1. &#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D; -->
       <div class="work-card" data-category="design">
         <div class="work-card-img">
-          <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;31.png" alt="&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;&#x65D7;&#x888D;" onclick="openLightbox(this)"/>
+          <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;31.png" alt="&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;&#x65D7;&#x888D;"/>
         </div>
         <div class="work-card-body">
           <h3>&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1; &middot; &#x65D7;&#x888D;&#x7CFB;&#x5217;</h3>
           <p>&#x4EE5;&#x5510;&#x5361;&#x827A;&#x672F;&#x4E3A;&#x7075;&#x611F;&#x7684;&#x65D7;&#x888D;&#x521B;&#x65B0;&#x8BBE;&#x8BA1;&#xFF0C;&#x5C55;&#x73B0;&#x4E2D;&#x56FD;&#x4F20;&#x7EDF;&#x7F8E;&#x5B66;</p>
           <div class="work-tags"><span>&#x65D7;&#x888D;</span><span>&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;</span><span>&#x5510;&#x5361;</span></div>
           <div class="work-thumbs">
-            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;31_1.png" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;31_2.png" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x8BBE;1_4.png" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x8BBE;1_5.png" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x8BBE;1_6.png" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x8BBE;2.png" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x8BBE;2_1.png" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x8BBE;2_2.png" alt="" onclick="openLightbox(this)"/>
+            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;31_1.png" alt=""/>
+            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;31_2.png" alt=""/>
+            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x8BBE;1_4.png" alt=""/>
+            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x8BBE;1_5.png" alt=""/>
+            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x8BBE;1_6.png" alt=""/>
+            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x8BBE;2.png" alt=""/>
+            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x8BBE;2_1.png" alt=""/>
+            <img src="images/&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;-&#x65D7;&#x888D;/&#x6BD5;&#x8BBE;2_2.png" alt=""/>
           </div>
         </div>
       </div>
@@ -332,19 +334,19 @@
       <!-- 2. 礼服设计 -->
       <div class="work-card" data-category="design">
         <div class="work-card-img">
-          <img src="images/&#x793C;&#x670D;&#x8BBE;&#x8BA1;/retouch_2022061922004007.jpg" alt="&#x793C;&#x670D;&#x8BBE;&#x8BA1;" onclick="openLightbox(this)"/>
+          <img src="images/&#x793C;&#x670D;&#x8BBE;&#x8BA1;/retouch_2022061922004007.jpg" alt="&#x793C;&#x670D;&#x8BBE;&#x8BA1;"/>
         </div>
         <div class="work-card-body">
           <h3>&#x793C;&#x670D;&#x8BBE;&#x8BA1;&#x7CFB;&#x5217;</h3>
           <p>&#x4E2D;&#x897F;&#x878D;&#x5408;&#x7684;&#x793C;&#x670D;&#x8BBE;&#x8BA1;&#xFF0C;&#x5C06;&#x4F20;&#x7EDF;&#x5143;&#x7D20;&#x4E0E;&#x73B0;&#x4EE3;&#x5269;&#x88C1;&#x7ED3;&#x5408;</p>
           <div class="work-tags"><span>&#x793C;&#x670D;</span><span>&#x8BBE;&#x8BA1;</span><span>&#x4E2D;&#x897F;&#x878D;&#x5408;</span></div>
           <div class="work-thumbs">
-            <img src="images/&#x793C;&#x670D;&#x8BBE;&#x8BA1;/mmexport1654226480786.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x793C;&#x670D;&#x8BBE;&#x8BA1;/mmexport1655646779325.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x793C;&#x670D;&#x8BBE;&#x8BA1;/mmexport1655646795411.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x793C;&#x670D;&#x8BBE;&#x8BA1;/retouch_2022061922182509.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x793C;&#x670D;&#x8BBE;&#x8BA1;/retouch_2022061922210378.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x793C;&#x670D;&#x8BBE;&#x8BA1;/MTXX_MH20231107_130429816_image_repair_1699334431032.jpg" alt="" onclick="openLightbox(this)"/>
+            <img src="images/&#x793C;&#x670D;&#x8BBE;&#x8BA1;/mmexport1654226480786.jpg" alt=""/>
+            <img src="images/&#x793C;&#x670D;&#x8BBE;&#x8BA1;/mmexport1655646779325.jpg" alt=""/>
+            <img src="images/&#x793C;&#x670D;&#x8BBE;&#x8BA1;/mmexport1655646795411.jpg" alt=""/>
+            <img src="images/&#x793C;&#x670D;&#x8BBE;&#x8BA1;/retouch_2022061922182509.jpg" alt=""/>
+            <img src="images/&#x793C;&#x670D;&#x8BBE;&#x8BA1;/retouch_2022061922210378.jpg" alt=""/>
+            <img src="images/&#x793C;&#x670D;&#x8BBE;&#x8BA1;/MTXX_MH20231107_130429816_image_repair_1699334431032.jpg" alt=""/>
           </div>
         </div>
       </div>
@@ -352,16 +354,16 @@
       <!-- 3. 唐卡灵感男装 -->
       <div class="work-card" data-category="design">
         <div class="work-card-img">
-          <img src="images/&#x7537;&#x88C5;&#x8BBE;&#x8BA1;/menswear-main.png" alt="&#x7537;&#x88C5;&#x8BBE;&#x8BA1;" onclick="openLightbox(this)"/>
+          <img src="images/&#x7537;&#x88C5;&#x8BBE;&#x8BA1;/menswear-main.png" alt="&#x7537;&#x88C5;&#x8BBE;&#x8BA1;"/>
         </div>
         <div class="work-card-body">
           <h3>&#x5510;&#x5361;&#x7075;&#x611F;&#x7537;&#x88C5;&#x8BBE;&#x8BA1;</h3>
           <p>&#x4EE5;&#x85CF;&#x65CF;&#x5510;&#x5361;&#x827A;&#x672F;&#x4E3A;&#x7075;&#x611F;&#xFF0C;&#x878D;&#x5165;&#x73B0;&#x4EE3;&#x7537;&#x88C5;&#x8BBE;&#x8BA1;</p>
           <div class="work-tags"><span>&#x7537;&#x88C5;</span><span>&#x5510;&#x5361;</span><span>&#x6C11;&#x65CF;&#x5143;&#x7D20;</span></div>
           <div class="work-thumbs">
-            <img src="images/&#x7537;&#x88C5;&#x8BBE;&#x8BA1;/menswear1.png" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x7537;&#x88C5;&#x8BBE;&#x8BA1;/menswear2.png" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x7537;&#x88C5;&#x8BBE;&#x8BA1;/menswear3.png" alt="" onclick="openLightbox(this)"/>
+            <img src="images/&#x7537;&#x88C5;&#x8BBE;&#x8BA1;/menswear1.png" alt=""/>
+            <img src="images/&#x7537;&#x88C5;&#x8BBE;&#x8BA1;/menswear2.png" alt=""/>
+            <img src="images/&#x7537;&#x88C5;&#x8BBE;&#x8BA1;/menswear3.png" alt=""/>
           </div>
         </div>
       </div>
@@ -369,24 +371,24 @@
       <!-- 4. 海报设计 -->
       <div class="work-card" data-category="poster">
         <div class="work-card-img">
-          <img src="images/海报设计/富家千金1.jpg" alt="海报设计" onclick="openLightbox(this)"/>
+          <img src="images/海报设计/富家千金1.jpg" alt="海报设计"/>
         </div>
         <div class="work-card-body">
           <h3>海报设计</h3>
           <p>时尚主题海报设计，涵盖多种风格与视觉表达</p>
           <div class="work-tags"><span>海报</span><span>视觉</span><span>设计</span></div>
           <div class="work-thumbs">
-            <img src="images/海报设计/俏皮活泼1.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/海报设计/轻熟优雅1.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/海报设计/喜袍1.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/海报设计/新中式禅意1.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/海报设计/职场OL1.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/海报设计/intern1.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/海报设计/intern2.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/海报设计/intern3.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/海报设计/intern4.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/海报设计/intern5.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/海报设计/intern6.jpg" alt="" onclick="openLightbox(this)"/>
+            <img src="images/海报设计/俏皮活泼1.jpg" alt=""/>
+            <img src="images/海报设计/轻熟优雅1.jpg" alt=""/>
+            <img src="images/海报设计/喜袍1.jpg" alt=""/>
+            <img src="images/海报设计/新中式禅意1.jpg" alt=""/>
+            <img src="images/海报设计/职场OL1.jpg" alt=""/>
+            <img src="images/海报设计/intern1.jpg" alt=""/>
+            <img src="images/海报设计/intern2.jpg" alt=""/>
+            <img src="images/海报设计/intern3.jpg" alt=""/>
+            <img src="images/海报设计/intern4.jpg" alt=""/>
+            <img src="images/海报设计/intern5.jpg" alt=""/>
+            <img src="images/海报设计/intern6.jpg" alt=""/>
           </div>
         </div>
       </div>
@@ -394,7 +396,7 @@
       <!-- 5. 3D&#x670D;&#x88C5;&#x8BBE;&#x8BA1; -->
       <div class="work-card" data-category="3d">
         <div class="work-card-img">
-          <img src="images/&#x670D;&#x88C5;3d/style3d.png" alt="3D&#x670D;&#x88C5;" onclick="openLightbox(this)"/>
+          <img src="images/&#x670D;&#x88C5;3d/style3d.png" alt="3D&#x670D;&#x88C5;"/>
         </div>
         <div class="work-card-body">
           <h3>3D&#x670D;&#x88C5;&#x8BBE;&#x8BA1;</h3>
@@ -406,18 +408,18 @@
       <!-- 5. &#x57FA;&#x7840;&#x670D;&#x88C5;&#x753B; -->
       <div class="work-card" data-category="drawing">
         <div class="work-card-img">
-          <img src="images/&#x57FA;&#x7840;&#x670D;&#x88C5;&#x753B;/&#x5FAE;&#x4FE1;&#x56FE;&#x7247;_20210113180731.jpg" alt="&#x670D;&#x88C5;&#x753B;" onclick="openLightbox(this)"/>
+          <img src="images/&#x57FA;&#x7840;&#x670D;&#x88C5;&#x753B;/&#x5FAE;&#x4FE1;&#x56FE;&#x7247;_20210113180731.jpg" alt="&#x670D;&#x88C5;&#x753B;"/>
         </div>
         <div class="work-card-body">
           <h3>&#x57FA;&#x7840;&#x670D;&#x88C5;&#x753B;</h3>
           <p>&#x670D;&#x88C5;&#x6548;&#x679C;&#x56FE;&#x3001;&#x6B3E;&#x5F0F;&#x56FE;&#x7ED8;&#x5236;&#xFF0C;&#x5C55;&#x73B0;&#x624B;&#x7ED8;&#x529F;&#x5E95;</p>
           <div class="work-tags"><span>&#x624B;&#x7ED8;</span><span>&#x6548;&#x679C;&#x56FE;</span><span>&#x670D;&#x88C5;&#x753B;</span></div>
           <div class="work-thumbs">
-            <img src="images/&#x57FA;&#x7840;&#x670D;&#x88C5;&#x753B;/&#x5FAE;&#x4FE1;&#x56FE;&#x7247;_20210113180745.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x57FA;&#x7840;&#x670D;&#x88C5;&#x753B;/&#x5FAE;&#x4FE1;&#x56FE;&#x7247;_20210113180752.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x57FA;&#x7840;&#x670D;&#x88C5;&#x753B;/&#x5FAE;&#x4FE1;&#x56FE;&#x7247;_20210113180759.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x57FA;&#x7840;&#x670D;&#x88C5;&#x753B;/&#x5FAE;&#x4FE1;&#x56FE;&#x7247;_20210113180824.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x57FA;&#x7840;&#x670D;&#x88C5;&#x753B;/&#x5FAE;&#x4FE1;&#x56FE;&#x7247;_20210113180834.jpg" alt="" onclick="openLightbox(this)"/>
+            <img src="images/&#x57FA;&#x7840;&#x670D;&#x88C5;&#x753B;/&#x5FAE;&#x4FE1;&#x56FE;&#x7247;_20210113180745.jpg" alt=""/>
+            <img src="images/&#x57FA;&#x7840;&#x670D;&#x88C5;&#x753B;/&#x5FAE;&#x4FE1;&#x56FE;&#x7247;_20210113180752.jpg" alt=""/>
+            <img src="images/&#x57FA;&#x7840;&#x670D;&#x88C5;&#x753B;/&#x5FAE;&#x4FE1;&#x56FE;&#x7247;_20210113180759.jpg" alt=""/>
+            <img src="images/&#x57FA;&#x7840;&#x670D;&#x88C5;&#x753B;/&#x5FAE;&#x4FE1;&#x56FE;&#x7247;_20210113180824.jpg" alt=""/>
+            <img src="images/&#x57FA;&#x7840;&#x670D;&#x88C5;&#x753B;/&#x5FAE;&#x4FE1;&#x56FE;&#x7247;_20210113180834.jpg" alt=""/>
           </div>
         </div>
       </div>
@@ -425,26 +427,26 @@
       <!-- 6. CAD&#x6253;&#x7248; -->
       <div class="work-card" data-category="pattern">
         <div class="work-card-img">
-          <img src="images/&#x6253;&#x7248;cad/&#x5973;&#x886C;&#x8863;&#x7ED3;&#x6784;&#x56FE;.jpg" alt="CAD&#x6253;&#x7248;" onclick="openLightbox(this)"/>
+          <img src="images/&#x6253;&#x7248;cad/&#x5973;&#x886C;&#x8863;&#x7ED3;&#x6784;&#x56FE;.jpg" alt="CAD&#x6253;&#x7248;"/>
         </div>
         <div class="work-card-body">
           <h3>CAD&#x6253;&#x7248;</h3>
           <p>&#x4F7F;&#x7528;CAD&#x8F6F;&#x4EF6;&#x8FDB;&#x884C;&#x670D;&#x88C5;&#x7248;&#x578B;&#x5236;&#x4F5C;&#x3001;&#x63A8;&#x7801;&#x4E0E;&#x7ED3;&#x6784;&#x8BBE;&#x8BA1;</p>
           <div class="work-tags"><span>CAD</span><span>&#x6253;&#x7248;</span><span>&#x63A8;&#x7801;</span></div>
           <div class="work-thumbs">
-            <img src="images/&#x6253;&#x7248;cad/&#x5973;&#x886C;&#x8863;&#x63A8;&#x7801;&#x56FE;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6253;&#x7248;cad/&#x5973;&#x886C;&#x8863;&#x6837;&#x677F;&#x56FE;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6253;&#x7248;cad/&#x5973;&#x897F;&#x88E4;&#x7ED3;&#x6784;&#x56FE;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6253;&#x7248;cad/&#x5973;&#x897F;&#x88E4;&#x63A8;&#x7801;&#x56FE;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6253;&#x7248;cad/&#x5973;&#x897F;&#x88E4;&#x6837;&#x677F;&#x56FE;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6253;&#x7248;cad/&#x7FA4;&#x539F;&#x578B;&#x7248;&#x56FE;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6253;&#x7248;cad/&#x7FA4;&#x539F;&#x578B;&#x7ED3;&#x6784;&#x56FE;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6253;&#x7248;cad/&#x8863;&#x8EAB;&#x539F;&#x578B;&#x7248;&#x56FE;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6253;&#x7248;cad/&#x8863;&#x8EAB;&#x539F;&#x578B;&#x7ED3;&#x6784;&#x56FE;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6253;&#x7248;cad/&#x9C7C;&#x5C3E;&#x88D9;&#x7248;&#x56FE;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6253;&#x7248;cad/&#x9C7C;&#x5C3E;&#x88D9;&#x7ED3;&#x6784;&#x56FE;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6253;&#x7248;cad/&#x62BD;&#x8936;&#x4F11;&#x95F2;&#x957F;&#x88E4;&#x7248;&#x56FE;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x6253;&#x7248;cad/&#x62BD;&#x8936;&#x4F11;&#x95F2;&#x957F;&#x88E4;&#x7ED3;&#x6784;&#x56FE;.jpg" alt="" onclick="openLightbox(this)"/>
+            <img src="images/&#x6253;&#x7248;cad/&#x5973;&#x886C;&#x8863;&#x63A8;&#x7801;&#x56FE;.jpg" alt=""/>
+            <img src="images/&#x6253;&#x7248;cad/&#x5973;&#x886C;&#x8863;&#x6837;&#x677F;&#x56FE;.jpg" alt=""/>
+            <img src="images/&#x6253;&#x7248;cad/&#x5973;&#x897F;&#x88E4;&#x7ED3;&#x6784;&#x56FE;.jpg" alt=""/>
+            <img src="images/&#x6253;&#x7248;cad/&#x5973;&#x897F;&#x88E4;&#x63A8;&#x7801;&#x56FE;.jpg" alt=""/>
+            <img src="images/&#x6253;&#x7248;cad/&#x5973;&#x897F;&#x88E4;&#x6837;&#x677F;&#x56FE;.jpg" alt=""/>
+            <img src="images/&#x6253;&#x7248;cad/&#x7FA4;&#x539F;&#x578B;&#x7248;&#x56FE;.jpg" alt=""/>
+            <img src="images/&#x6253;&#x7248;cad/&#x7FA4;&#x539F;&#x578B;&#x7ED3;&#x6784;&#x56FE;.jpg" alt=""/>
+            <img src="images/&#x6253;&#x7248;cad/&#x8863;&#x8EAB;&#x539F;&#x578B;&#x7248;&#x56FE;.jpg" alt=""/>
+            <img src="images/&#x6253;&#x7248;cad/&#x8863;&#x8EAB;&#x539F;&#x578B;&#x7ED3;&#x6784;&#x56FE;.jpg" alt=""/>
+            <img src="images/&#x6253;&#x7248;cad/&#x9C7C;&#x5C3E;&#x88D9;&#x7248;&#x56FE;.jpg" alt=""/>
+            <img src="images/&#x6253;&#x7248;cad/&#x9C7C;&#x5C3E;&#x88D9;&#x7ED3;&#x6784;&#x56FE;.jpg" alt=""/>
+            <img src="images/&#x6253;&#x7248;cad/&#x62BD;&#x8936;&#x4F11;&#x95F2;&#x957F;&#x88E4;&#x7248;&#x56FE;.jpg" alt=""/>
+            <img src="images/&#x6253;&#x7248;cad/&#x62BD;&#x8936;&#x4F11;&#x95F2;&#x957F;&#x88E4;&#x7ED3;&#x6784;&#x56FE;.jpg" alt=""/>
           </div>
         </div>
       </div>
@@ -452,21 +454,21 @@
       <!-- 9. &#x624B;&#x7ED8;&#x7248;&#x56FE; -->
       <div class="work-card" data-category="pattern">
         <div class="work-card-img">
-          <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/A&#x5B57;&#x88D9;.jpg" alt="&#x624B;&#x7ED8;&#x7248;&#x56FE;" onclick="openLightbox(this)"/>
+          <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/A&#x5B57;&#x88D9;.jpg" alt="&#x624B;&#x7ED8;&#x7248;&#x56FE;"/>
         </div>
         <div class="work-card-body">
           <h3>&#x624B;&#x7ED8;&#x7248;&#x56FE;</h3>
           <p>&#x624B;&#x7ED8;&#x670D;&#x88C5;&#x7248;&#x578B;&#x56FE;&#xFF0C;&#x5305;&#x62EC;&#x88D9;&#x88C5;&#x3001;&#x88E4;&#x88C5;&#x3001;&#x8FDE;&#x8863;&#x88D9;&#x7B49;&#x591A;&#x79CD;&#x6B3E;&#x5F0F;</p>
           <div class="work-tags"><span>&#x624B;&#x7ED8;</span><span>&#x7248;&#x578B;</span><span>&#x7ED3;&#x6784;</span></div>
           <div class="work-thumbs">
-            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x80CC;&#x5E26;&#x88D9;&#x7248;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x63D2;&#x80A9;&#x8896;&#x8FDE;&#x8863;&#x88D9;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x4F4E;&#x8170;&#x7D27;&#x8EAB;&#x5587;&#x53ED;&#x88E4;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x57FA;&#x672C;&#x6B3E;&#x8FDE;&#x8863;&#x88D9;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x897F;&#x88E4;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x897F;&#x88C5;&#x88D9;.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x9C7C;&#x5C3E;&#x88D9;1.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x9C7C;&#x5C3E;&#x88D9;2.jpg" alt="" onclick="openLightbox(this)"/>
+            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x80CC;&#x5E26;&#x88D9;&#x7248;.jpg" alt=""/>
+            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x63D2;&#x80A9;&#x8896;&#x8FDE;&#x8863;&#x88D9;.jpg" alt=""/>
+            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x4F4E;&#x8170;&#x7D27;&#x8EAB;&#x5587;&#x53ED;&#x88E4;.jpg" alt=""/>
+            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x57FA;&#x672C;&#x6B3E;&#x8FDE;&#x8863;&#x88D9;.jpg" alt=""/>
+            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x897F;&#x88E4;.jpg" alt=""/>
+            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x897F;&#x88C5;&#x88D9;.jpg" alt=""/>
+            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x9C7C;&#x5C3E;&#x88D9;1.jpg" alt=""/>
+            <img src="images/&#x7248;&#x56FE;&#x624B;&#x7ED8;/&#x9C7C;&#x5C3E;&#x88D9;2.jpg" alt=""/>
           </div>
         </div>
       </div>
@@ -474,18 +476,18 @@
       <!-- 工艺基础 - 男西装 -->
       <div class="work-card" data-category="craft">
         <div class="work-card-img">
-          <img src="images/工艺基础/男西装/微信图片_20220113224232.jpg" alt="男西装工艺" onclick="openLightbox(this)"/>
+          <img src="images/工艺基础/男西装/微信图片_20220113224232.jpg" alt="男西装工艺"/>
         </div>
         <div class="work-card-body">
           <h3>工艺基础 &middot; 男西装</h3>
           <p>男西装缝制工艺，学习西装结构与制作技术</p>
           <div class="work-tags"><span>工艺</span><span>男西装</span><span>缝制</span></div>
           <div class="work-thumbs">
-            <img src="images/工艺基础/男西装/微信图片_20220113224238.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/男西装/微信图片_20220113224243.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/男西装/屏幕截图 2022-01-13 215005.png" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/男西装/屏幕截图 2022-01-13 223707.png" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/男西装/屏幕截图 2022-01-13 230203.png" alt="" onclick="openLightbox(this)"/>
+            <img src="images/工艺基础/男西装/微信图片_20220113224238.jpg" alt=""/>
+            <img src="images/工艺基础/男西装/微信图片_20220113224243.jpg" alt=""/>
+            <img src="images/工艺基础/男西装/屏幕截图 2022-01-13 215005.png" alt=""/>
+            <img src="images/工艺基础/男西装/屏幕截图 2022-01-13 223707.png" alt=""/>
+            <img src="images/工艺基础/男西装/屏幕截图 2022-01-13 230203.png" alt=""/>
           </div>
         </div>
       </div>
@@ -493,20 +495,20 @@
       <!-- 工艺基础 - 女上装 -->
       <div class="work-card" data-category="craft">
         <div class="work-card-img">
-          <img src="images/工艺基础/女上装/微信图片_20210709201348.jpg" alt="女上装工艺" onclick="openLightbox(this)"/>
+          <img src="images/工艺基础/女上装/微信图片_20210709201348.jpg" alt="女上装工艺"/>
         </div>
         <div class="work-card-body">
           <h3>工艺基础 &middot; 女上装</h3>
           <p>女上装缝制工艺练习，掌握基础缝纫技术与成衣制作</p>
           <div class="work-tags"><span>工艺</span><span>女上装</span><span>缝制</span></div>
           <div class="work-thumbs">
-            <img src="images/工艺基础/女上装/微信图片_20210709201355.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女上装/微信图片_20210709201402.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女上装/微信图片_20210709201410.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女上装/微信图片_20210709201645.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女上装/微信图片_20210709201725.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女上装/微信图片_20210709201824.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女上装/微信图片_20210709201832.jpg" alt="" onclick="openLightbox(this)"/>
+            <img src="images/工艺基础/女上装/微信图片_20210709201355.jpg" alt=""/>
+            <img src="images/工艺基础/女上装/微信图片_20210709201402.jpg" alt=""/>
+            <img src="images/工艺基础/女上装/微信图片_20210709201410.jpg" alt=""/>
+            <img src="images/工艺基础/女上装/微信图片_20210709201645.jpg" alt=""/>
+            <img src="images/工艺基础/女上装/微信图片_20210709201725.jpg" alt=""/>
+            <img src="images/工艺基础/女上装/微信图片_20210709201824.jpg" alt=""/>
+            <img src="images/工艺基础/女上装/微信图片_20210709201832.jpg" alt=""/>
           </div>
         </div>
       </div>
@@ -514,23 +516,23 @@
       <!-- 工艺基础 - 女下装 -->
       <div class="work-card" data-category="craft">
         <div class="work-card-img">
-          <img src="images/工艺基础/女下装/IMG20201229194420.jpg" alt="女下装工艺" onclick="openLightbox(this)"/>
+          <img src="images/工艺基础/女下装/IMG20201229194420.jpg" alt="女下装工艺"/>
         </div>
         <div class="work-card-body">
           <h3>工艺基础 &middot; 女下装</h3>
           <p>女下装缝制工艺，包括牛仔裤、西装裙等多种款式制作</p>
           <div class="work-tags"><span>工艺</span><span>女下装</span><span>缝制</span></div>
           <div class="work-thumbs">
-            <img src="images/工艺基础/女下装/IMG20201229194450.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女下装/IMG20201229194646.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女下装/牛仔裤正面.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女下装/牛仔裤反面.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女下装/西装裙正面.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女下装/西装裙反面.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女下装/西装裙侧面.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女下装/自选款正面.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女下装/自选款反面.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/女下装/自选款侧面.jpg" alt="" onclick="openLightbox(this)"/>
+            <img src="images/工艺基础/女下装/IMG20201229194450.jpg" alt=""/>
+            <img src="images/工艺基础/女下装/IMG20201229194646.jpg" alt=""/>
+            <img src="images/工艺基础/女下装/牛仔裤正面.jpg" alt=""/>
+            <img src="images/工艺基础/女下装/牛仔裤反面.jpg" alt=""/>
+            <img src="images/工艺基础/女下装/西装裙正面.jpg" alt=""/>
+            <img src="images/工艺基础/女下装/西装裙反面.jpg" alt=""/>
+            <img src="images/工艺基础/女下装/西装裙侧面.jpg" alt=""/>
+            <img src="images/工艺基础/女下装/自选款正面.jpg" alt=""/>
+            <img src="images/工艺基础/女下装/自选款反面.jpg" alt=""/>
+            <img src="images/工艺基础/女下装/自选款侧面.jpg" alt=""/>
           </div>
         </div>
       </div>
@@ -538,16 +540,16 @@
       <!-- &#x7ACB;&#x4F53;&#x88C1;&#x526A; -->
       <div class="work-card" data-category="craft">
         <div class="work-card-img">
-          <img src="images/&#x7ACB;&#x4F53;&#x88C1;&#x526A;/IMG20200617172113.jpg" alt="&#x7ACB;&#x4F53;&#x88C1;&#x526A;" onclick="openLightbox(this)"/>
+          <img src="images/&#x7ACB;&#x4F53;&#x88C1;&#x526A;/IMG20200617172113.jpg" alt="&#x7ACB;&#x4F53;&#x88C1;&#x526A;"/>
         </div>
         <div class="work-card-body">
           <h3>&#x7ACB;&#x4F53;&#x88C1;&#x526A;</h3>
           <p>&#x7ACB;&#x4F53;&#x9020;&#x578B;&#x4E0E;&#x9762;&#x6599;&#x5851;&#x5F62;&#xFF0C;&#x63A2;&#x7D22;&#x670D;&#x88C5;&#x7ED3;&#x6784;&#x4E0E;&#x7A7A;&#x95F4;&#x5173;&#x7CFB;</p>
           <div class="work-tags"><span>&#x7ACB;&#x88C1;</span><span>&#x9020;&#x578B;</span><span>&#x7ED3;&#x6784;</span></div>
           <div class="work-thumbs">
-            <img src="images/&#x7ACB;&#x4F53;&#x88C1;&#x526A;/IMG20200603155536.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x7ACB;&#x4F53;&#x88C1;&#x526A;/IMG20200606145258.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/&#x7ACB;&#x4F53;&#x88C1;&#x526A;/IMG20200620130213.jpg" alt="" onclick="openLightbox(this)"/>
+            <img src="images/&#x7ACB;&#x4F53;&#x88C1;&#x526A;/IMG20200603155536.jpg" alt=""/>
+            <img src="images/&#x7ACB;&#x4F53;&#x88C1;&#x526A;/IMG20200606145258.jpg" alt=""/>
+            <img src="images/&#x7ACB;&#x4F53;&#x88C1;&#x526A;/IMG20200620130213.jpg" alt=""/>
           </div>
         </div>
       </div>
@@ -555,14 +557,14 @@
       <!-- &#x62FC;&#x5E03;&#x827A;&#x672F; -->
       <div class="work-card" data-category="craft">
         <div class="work-card-img">
-          <img src="images/&#x62FC;&#x5E03;/0d816b40f639cd67c8812066a2c3f23.jpg" alt="&#x62FC;&#x5E03;" onclick="openLightbox(this)"/>
+          <img src="images/&#x62FC;&#x5E03;/0d816b40f639cd67c8812066a2c3f23.jpg" alt="&#x62FC;&#x5E03;"/>
         </div>
         <div class="work-card-body">
           <h3>&#x62FC;&#x5E03;&#x827A;&#x672F;</h3>
           <p>&#x62FC;&#x5E03;&#x5DE5;&#x827A;&#x521B;&#x4F5C;&#xFF0C;&#x5C06;&#x4E0D;&#x540C;&#x9762;&#x6599;&#x62FC;&#x63A5;&#x6210;&#x827A;&#x672F;&#x4F5C;&#x54C1;</p>
           <div class="work-tags"><span>&#x62FC;&#x5E03;</span><span>&#x624B;&#x5DE5;</span><span>&#x827A;&#x672F;</span></div>
           <div class="work-thumbs">
-            <img src="images/&#x62FC;&#x5E03;/af3a03911a7dd2c1fb8ef47d6c97662.jpg" alt="" onclick="openLightbox(this)"/>
+            <img src="images/&#x62FC;&#x5E03;/af3a03911a7dd2c1fb8ef47d6c97662.jpg" alt=""/>
           </div>
         </div>
       </div>
@@ -570,18 +572,18 @@
       <!-- 工艺基础 - 口袋与手提包 -->
       <div class="work-card" data-category="craft">
         <div class="work-card-img">
-          <img src="images/工艺基础/口袋与手提包/IMG20200628173920.jpg" alt="口袋与手提包" onclick="openLightbox(this)"/>
+          <img src="images/工艺基础/口袋与手提包/IMG20200628173920.jpg" alt="口袋与手提包"/>
         </div>
         <div class="work-card-body">
           <h3>工艺基础 &middot; 口袋与手提包</h3>
           <p>口袋工艺与手提包制作，练习精细缝制技术</p>
           <div class="work-tags"><span>工艺</span><span>口袋</span><span>手提包</span></div>
           <div class="work-thumbs">
-            <img src="images/工艺基础/口袋与手提包/IMG20200628174019.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/口袋与手提包/IMG20200628174103.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/口袋与手提包/IMG20200628174150.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/口袋与手提包/IMG20200628174245.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/工艺基础/口袋与手提包/IMG20200701164438.jpg" alt="" onclick="openLightbox(this)"/>
+            <img src="images/工艺基础/口袋与手提包/IMG20200628174019.jpg" alt=""/>
+            <img src="images/工艺基础/口袋与手提包/IMG20200628174103.jpg" alt=""/>
+            <img src="images/工艺基础/口袋与手提包/IMG20200628174150.jpg" alt=""/>
+            <img src="images/工艺基础/口袋与手提包/IMG20200628174245.jpg" alt=""/>
+            <img src="images/工艺基础/口袋与手提包/IMG20200701164438.jpg" alt=""/>
           </div>
         </div>
       </div>
@@ -589,19 +591,19 @@
       <!-- 男装基础结构 -->
       <div class="work-card" data-category="pattern">
         <div class="work-card-img">
-          <img src="images/男装基础结构/微信图片_20220108205110.jpg" alt="男装基础结构" onclick="openLightbox(this)"/>
+          <img src="images/男装基础结构/微信图片_20220108205110.jpg" alt="男装基础结构"/>
         </div>
         <div class="work-card-body">
           <h3>男装基础结构</h3>
           <p>男装基础版型结构研究，包括衬衫、西装、裤装等结构制图</p>
           <div class="work-tags"><span>男装</span><span>结构</span><span>版型</span></div>
           <div class="work-thumbs">
-            <img src="images/男装基础结构/微信图片_20220108205120.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/男装基础结构/微信图片_20220108205124.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/男装基础结构/微信图片_20220108205128.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/男装基础结构/微信图片_20220108213551.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/男装基础结构/微信图片_20220108213622.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/男装基础结构/微信图片_20220108214020.jpg" alt="" onclick="openLightbox(this)"/>
+            <img src="images/男装基础结构/微信图片_20220108205120.jpg" alt=""/>
+            <img src="images/男装基础结构/微信图片_20220108205124.jpg" alt=""/>
+            <img src="images/男装基础结构/微信图片_20220108205128.jpg" alt=""/>
+            <img src="images/男装基础结构/微信图片_20220108213551.jpg" alt=""/>
+            <img src="images/男装基础结构/微信图片_20220108213622.jpg" alt=""/>
+            <img src="images/男装基础结构/微信图片_20220108214020.jpg" alt=""/>
           </div>
         </div>
       </div>
@@ -609,22 +611,22 @@
       <!-- 摄影 -->
       <div class="work-card" data-category="photo">
         <div class="work-card-img">
-          <img src="images/摄影/日出1.jpg" alt="摄影作品" onclick="openLightbox(this)"/>
+          <img src="images/摄影/日出1.jpg" alt="摄影作品"/>
         </div>
         <div class="work-card-body">
           <h3>摄影作品</h3>
           <p>摄影练习作品，涵盖日出、色彩、线条、形状、影调等主题</p>
           <div class="work-tags"><span>摄影</span><span>色彩</span><span>构图</span></div>
           <div class="work-thumbs">
-            <img src="images/摄影/日出2.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/摄影/色彩1.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/摄影/色彩2.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/摄影/线条1.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/摄影/形状1.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/摄影/形状2.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/摄影/影调1.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/摄影/影调2.jpg" alt="" onclick="openLightbox(this)"/>
-            <img src="images/摄影/影调3.jpg" alt="" onclick="openLightbox(this)"/>
+            <img src="images/摄影/日出2.jpg" alt=""/>
+            <img src="images/摄影/色彩1.jpg" alt=""/>
+            <img src="images/摄影/色彩2.jpg" alt=""/>
+            <img src="images/摄影/线条1.jpg" alt=""/>
+            <img src="images/摄影/形状1.jpg" alt=""/>
+            <img src="images/摄影/形状2.jpg" alt=""/>
+            <img src="images/摄影/影调1.jpg" alt=""/>
+            <img src="images/摄影/影调2.jpg" alt=""/>
+            <img src="images/摄影/影调3.jpg" alt=""/>
           </div>
         </div>
       </div>
@@ -688,7 +690,7 @@
     <p class="contact-intro">期待与你的每一次交流，欢迎通过以下方式联系我 ✨</p>
 
     <div class="contact-cards-row">
-      <div class="contact-card" onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')">
+      <div class="contact-card">
         <div class="contact-icon-circle">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         </div>
@@ -697,7 +699,7 @@
           <p>173 0575 5168</p>
         </div>
       </div>
-      <div class="contact-card" onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')">
+      <div class="contact-card">
         <div class="contact-icon-circle">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </div>
@@ -706,7 +708,7 @@
           <p><a href="mailto:sgqt0811@163.com" class="contact-link">sgqt0811@163.com</a></p>
         </div>
       </div>
-      <div class="contact-card" onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')">
+      <div class="contact-card">
         <div class="contact-icon-circle">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
         </div>
@@ -715,7 +717,7 @@
           <p>sgqtqybk0811</p>
         </div>
       </div>
-      <div class="contact-card" onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')">
+      <div class="contact-card">
         <div class="contact-icon-circle">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>
         </div>
@@ -724,7 +726,7 @@
           <p>上海工程技术大学 · 纺织服装学院</p>
         </div>
       </div>
-      <div class="contact-card" onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')">
+      <div class="contact-card">
         <div class="contact-icon-circle">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
         </div>
@@ -735,7 +737,7 @@
       </div>
     </div>
 
-    <button class="btn btn-primary contact-msg-btn" onclick="openMessageModal()">
+    <button class="btn btn-primary contact-msg-btn">
       <span class="btn-sparkle"></span>
       想对我说什么？💌
     </button>
@@ -752,16 +754,19 @@
     </div>
 
     <!-- Message Modal -->
-    <div id="messageModal" class="message-modal" onclick="closeMessageModal(event)">
-      <div class="message-modal-content" onclick="event.stopPropagation()">
-        <button class="message-modal-close" onclick="closeMessageModal(event)">&times;</button>
+    <div id="messageModal" class="message-modal">
+      <div class="message-modal-content">
+        <button class="message-modal-close">&times;</button>
         <h3>给亚雯留言 ✉️</h3>
         <p class="message-modal-hint">有任何想法、建议或合作意向，欢迎留言~</p>
-        <form id="messageForm" onsubmit="submitMessage(event)">
-          <input type="text" id="msgName" placeholder="你的名字" required />
-          <input type="email" id="msgEmail" placeholder="你的邮箱（选填）" />
-          <textarea id="msgContent" placeholder="想说的话..." rows="4" required></textarea>
-          <button type="submit" class="btn btn-primary">发送留言</button>
+        <form id="messageForm">
+          <input type="text" id="msgName" placeholder="你的名字" maxlength="40" autocomplete="name" required />
+          <input type="email" id="msgEmail" placeholder="你的邮箱（选填）" maxlength="120" autocomplete="email" />
+          <textarea id="msgContent" placeholder="想说的话..." rows="4" maxlength="1000" required></textarea>
+          <input type="text" id="msgWebsite" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <div id="turnstileWidget" class="captcha-box"></div>
+          <p id="msgStatus" class="message-status" aria-live="polite"></p>
+          <button type="submit" id="msgSubmitBtn" class="btn btn-primary">发送留言</button>
         </form>
         <div id="msgSuccess" class="message-success" style="display:none">
           <span>🌸</span>
@@ -783,15 +788,15 @@
 </div><!-- end mainSite -->
 
 <!-- ===== LIGHTBOX ===== -->
-<div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
-  <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="Close">&times;</button>
-  <button class="lightbox-prev" onclick="prevImage(event)" aria-label="Previous">&#x276E;</button>
-  <button class="lightbox-next" onclick="nextImage(event)" aria-label="Next">&#x276F;</button>
+<div id="lightbox" class="lightbox">
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <button class="lightbox-prev" aria-label="Previous">&#x276E;</button>
+  <button class="lightbox-next" aria-label="Next">&#x276F;</button>
   <img id="lightboxImg" src="" alt="Preview"/>
 </div>
 
 <!-- ===== BACK TO TOP ===== -->
-<button id="backToTop" onclick="scrollToTop()" aria-label="Back to top">
+<button id="backToTop" aria-label="Back to top">
   <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="currentColor"/></svg>
 </button>
 
@@ -801,7 +806,8 @@
 </div>
 </div>
 
-<script src="script.js?v=3"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+<script src="script.js?v=4"></script>
 <script src="cat.js?v=5"></script>
 </body>
 </html>

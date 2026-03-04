@@ -134,11 +134,79 @@ function previewTree(dateStr) {
 var currentSeason, seasonConfig;
 var lightboxImages = [];
 var lightboxIndex = 0;
+var MESSAGE_API_TIMEOUT_MS = 12000;
+var APP_CONFIG = {
+  apiBase: '',
+  turnstileSiteKey: ''
+};
+var turnstileWidgetId = null;
+
+function readAppConfig() {
+  var body = document.body;
+  APP_CONFIG.apiBase = ((body.getAttribute('data-api-base') || '').trim()).replace(/\/+$/, '');
+  APP_CONFIG.turnstileSiteKey = (body.getAttribute('data-turnstile-sitekey') || '').trim();
+}
+
+function bindUiEvents() {
+  var enterBtn = document.getElementById('enterBtn');
+  if (enterBtn) enterBtn.addEventListener('click', enterSite);
+
+  var navToggle = document.querySelector('.nav-toggle');
+  if (navToggle) navToggle.addEventListener('click', toggleMenu);
+
+  var backToTopBtn = document.getElementById('backToTop');
+  if (backToTopBtn) backToTopBtn.addEventListener('click', scrollToTop);
+
+  var messageBtn = document.querySelector('.contact-msg-btn');
+  if (messageBtn) messageBtn.addEventListener('click', openMessageModal);
+
+  var lightbox = document.getElementById('lightbox');
+  if (lightbox) lightbox.addEventListener('click', closeLightbox);
+
+  var lightboxClose = document.querySelector('.lightbox-close');
+  if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+
+  var lightboxPrev = document.querySelector('.lightbox-prev');
+  if (lightboxPrev) lightboxPrev.addEventListener('click', prevImage);
+
+  var lightboxNext = document.querySelector('.lightbox-next');
+  if (lightboxNext) lightboxNext.addEventListener('click', nextImage);
+
+  var messageModal = document.getElementById('messageModal');
+  if (messageModal) messageModal.addEventListener('click', closeMessageModal);
+
+  var messageModalContent = document.querySelector('.message-modal-content');
+  if (messageModalContent) {
+    messageModalContent.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  }
+
+  var messageModalClose = document.querySelector('.message-modal-close');
+  if (messageModalClose) messageModalClose.addEventListener('click', closeMessageModal);
+
+  var messageForm = document.getElementById('messageForm');
+  if (messageForm) messageForm.addEventListener('submit', submitMessage);
+
+  document.querySelectorAll('.work-card-img img, .work-thumbs img').forEach(function(img) {
+    img.addEventListener('click', function() {
+      openLightbox(img);
+    });
+  });
+
+  document.querySelectorAll('.contact-card').forEach(function(card) {
+    card.addEventListener('mouseenter', function() { card.classList.add('hovered'); });
+    card.addEventListener('mouseleave', function() { card.classList.remove('hovered'); });
+    card.addEventListener('focusin', function() { card.classList.add('hovered'); });
+    card.addEventListener('focusout', function() { card.classList.remove('hovered'); });
+  });
+}
 
 function init() {
   currentSeason = getCurrentSeason();
   seasonConfig = SEASONS[currentSeason];
   document.body.className = currentSeason;
+  readAppConfig();
 
   var iconEl = document.getElementById('seasonIcon');
   if (iconEl) iconEl.textContent = seasonConfig.icon;
@@ -147,6 +215,7 @@ function init() {
 
   initParticles();
   initTreeImages();
+  bindUiEvents();
   initScrollAnimations();
   initNavHighlight();
   initFilterButtons();
@@ -472,6 +541,7 @@ function initNavHighlight() {
 function toggleMenu() {
   var links = document.getElementById('navLinks');
   var toggle = document.querySelector('.nav-toggle');
+  if (!links || !toggle) return;
   links.classList.toggle('open');
   toggle.classList.toggle('open');
 }
@@ -502,6 +572,7 @@ function initFilterButtons() {
 // ===== Back to Top =====
 function initBackToTop() {
   var btn = document.getElementById('backToTop');
+  if (!btn) return;
   window.addEventListener('scroll', function() {
     if (window.scrollY > 500) {
       btn.classList.add('visible');
@@ -550,32 +621,41 @@ function collectLightboxImages() {
 }
 
 function openLightbox(imgEl) {
+  if (!imgEl) return;
   var src = imgEl.src;
   lightboxIndex = lightboxImages.indexOf(src);
   if (lightboxIndex === -1) lightboxIndex = 0;
   var lb = document.getElementById('lightbox');
   var lbImg = document.getElementById('lightboxImg');
+  if (!lb || !lbImg) return;
   lbImg.src = src;
   lb.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox(e) {
-  if (e.target === document.getElementById('lightboxImg')) return;
-  document.getElementById('lightbox').classList.remove('active');
+  var lbImg = document.getElementById('lightboxImg');
+  if (e && e.target === lbImg) return;
+  var lb = document.getElementById('lightbox');
+  if (!lb) return;
+  lb.classList.remove('active');
   document.body.style.overflow = 'auto';
 }
 
 function prevImage(e) {
-  e.stopPropagation();
+  if (e) e.stopPropagation();
+  if (!lightboxImages.length) return;
   lightboxIndex = (lightboxIndex - 1 + lightboxImages.length) % lightboxImages.length;
-  document.getElementById('lightboxImg').src = lightboxImages[lightboxIndex];
+  var lbImg = document.getElementById('lightboxImg');
+  if (lbImg) lbImg.src = lightboxImages[lightboxIndex];
 }
 
 function nextImage(e) {
-  e.stopPropagation();
+  if (e) e.stopPropagation();
+  if (!lightboxImages.length) return;
   lightboxIndex = (lightboxIndex + 1) % lightboxImages.length;
-  document.getElementById('lightboxImg').src = lightboxImages[lightboxIndex];
+  var lbImg = document.getElementById('lightboxImg');
+  if (lbImg) lbImg.src = lightboxImages[lightboxIndex];
 }
 
 // Keyboard navigation for lightbox
@@ -588,15 +668,117 @@ document.addEventListener('keydown', function(e) {
 });
 
 // ===== Message Modal =====
+function sanitizeMessageField(value, maxLen) {
+  var text = (value || '')
+    .replace(/[\u0000-\u001F\u007F]/g, '')
+    .replace(/[<>]/g, '')
+    .trim();
+  return text.slice(0, maxLen);
+}
+
+function isValidEmail(email) {
+  if (!email) return true;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function setMessageStatus(message, type) {
+  var status = document.getElementById('msgStatus');
+  if (!status) return;
+  status.textContent = message || '';
+  status.classList.remove('error', 'success');
+  if (type) status.classList.add(type);
+}
+
+function renderTurnstileWidget() {
+  var box = document.getElementById('turnstileWidget');
+  if (!box) return;
+  if (!APP_CONFIG.turnstileSiteKey) {
+    setMessageStatus('验证码未配置，请联系站点管理员。', 'error');
+    return;
+  }
+  if (!window.turnstile || typeof window.turnstile.render !== 'function') return;
+  if (turnstileWidgetId !== null) return;
+  turnstileWidgetId = window.turnstile.render(box, {
+    sitekey: APP_CONFIG.turnstileSiteKey,
+    theme: 'light',
+    action: 'message_submit',
+    callback: function() { setMessageStatus('', ''); },
+    'error-callback': function() { setMessageStatus('验证码加载失败，请刷新后重试。', 'error'); },
+    'expired-callback': function() { setMessageStatus('验证码已过期，请重新验证。', 'error'); }
+  });
+}
+
+function resetTurnstileWidget() {
+  if (window.turnstile && turnstileWidgetId !== null) {
+    window.turnstile.reset(turnstileWidgetId);
+  }
+}
+
+function ensureTurnstileReady(retryCount) {
+  renderTurnstileWidget();
+  if (turnstileWidgetId !== null) {
+    resetTurnstileWidget();
+    return;
+  }
+  if (retryCount >= 20) {
+    setMessageStatus('验证码加载超时，请刷新页面后重试。', 'error');
+    return;
+  }
+  setTimeout(function() {
+    ensureTurnstileReady(retryCount + 1);
+  }, 250);
+}
+
+function getTurnstileToken() {
+  if (!window.turnstile || turnstileWidgetId === null) return '';
+  var token = window.turnstile.getResponse(turnstileWidgetId);
+  return token ? token.trim() : '';
+}
+
+async function postMessageToApi(payload) {
+  if (!APP_CONFIG.apiBase) {
+    return { ok: false, status: 0, body: { error: '留言服务未配置，请联系站点管理员。' } };
+  }
+
+  var controller = new AbortController();
+  var timeout = setTimeout(function() {
+    controller.abort();
+  }, MESSAGE_API_TIMEOUT_MS);
+
+  try {
+    var resp = await fetch(APP_CONFIG.apiBase + '/api/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+    var body = {};
+    try {
+      body = await resp.json();
+    } catch (err) {
+      body = {};
+    }
+    return { ok: resp.ok, status: resp.status, body: body };
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 function openMessageModal() {
   var modal = document.getElementById('messageModal');
+  var form = document.getElementById('messageForm');
+  var success = document.getElementById('msgSuccess');
   if (!modal) return;
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
   // Reset form state
-  document.getElementById('messageForm').style.display = 'block';
-  document.getElementById('msgSuccess').style.display = 'none';
-  document.getElementById('messageForm').reset();
+  if (form) {
+    form.style.display = 'block';
+    form.reset();
+  }
+  if (success) success.style.display = 'none';
+  setMessageStatus('', '');
+  ensureTurnstileReady(0);
 }
 
 function closeMessageModal(e) {
@@ -606,20 +788,82 @@ function closeMessageModal(e) {
   document.body.style.overflow = 'auto';
 }
 
-function submitMessage(e) {
+async function submitMessage(e) {
   e.preventDefault();
-  var name = document.getElementById('msgName').value;
-  var email = document.getElementById('msgEmail').value;
-  var content = document.getElementById('msgContent').value;
-  // Store message in localStorage as a simple solution
-  var messages = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
-  messages.push({ name: name, email: email, content: content, time: new Date().toISOString() });
-  localStorage.setItem('portfolio_messages', JSON.stringify(messages));
-  // Show success
-  document.getElementById('messageForm').style.display = 'none';
-  document.getElementById('msgSuccess').style.display = 'block';
-  // Auto close after 2s
-  setTimeout(function() { closeMessageModal({}); }, 2500);
+  var nameEl = document.getElementById('msgName');
+  var emailEl = document.getElementById('msgEmail');
+  var contentEl = document.getElementById('msgContent');
+  var websiteEl = document.getElementById('msgWebsite');
+  var form = document.getElementById('messageForm');
+  var success = document.getElementById('msgSuccess');
+  var submitBtn = document.getElementById('msgSubmitBtn');
+  if (!nameEl || !emailEl || !contentEl || !form || !success) return;
+
+  var name = sanitizeMessageField(nameEl.value, 40);
+  var email = sanitizeMessageField(emailEl.value, 120);
+  var content = sanitizeMessageField(contentEl.value, 1000);
+  var website = sanitizeMessageField(websiteEl ? websiteEl.value : '', 200);
+  var captchaToken = getTurnstileToken();
+  var originalBtnText = submitBtn ? submitBtn.textContent : '';
+
+  setMessageStatus('', '');
+
+  if (!name || !content) {
+    setMessageStatus('请填写姓名和留言内容。', 'error');
+    return;
+  }
+  if (!isValidEmail(email)) {
+    setMessageStatus('邮箱格式不正确，请检查后再提交。', 'error');
+    return;
+  }
+  if (!captchaToken) {
+    setMessageStatus('请先完成人机验证。', 'error');
+    return;
+  }
+
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = '发送中...';
+  }
+
+  var payload = {
+    name: name,
+    email: email,
+    content: content,
+    website: website,
+    captchaToken: captchaToken
+  };
+
+  try {
+    var result = await postMessageToApi(payload);
+    if (!result.ok) {
+      if (result.status === 429) {
+        setMessageStatus(result.body.error || '提交过于频繁，请稍后再试。', 'error');
+      } else {
+        setMessageStatus(result.body.error || '提交失败，请稍后重试。', 'error');
+      }
+      resetTurnstileWidget();
+      return;
+    }
+
+    form.style.display = 'none';
+    success.style.display = 'block';
+    setMessageStatus('留言已成功提交。', 'success');
+    resetTurnstileWidget();
+    setTimeout(function() { closeMessageModal({}); }, 2500);
+  } catch (err) {
+    if (err && err.name === 'AbortError') {
+      setMessageStatus('请求超时，请稍后重试。', 'error');
+    } else {
+      setMessageStatus('网络异常，请稍后重试。', 'error');
+    }
+    resetTurnstileWidget();
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalBtnText;
+    }
+  }
 }
 
 // Close modal on Escape
