@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://*.workers.dev; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://challenges.cloudflare.com; upgrade-insecure-requests; block-all-mixed-content">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests; block-all-mixed-content">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>曹亚雯 CAO YAWEN Portfolio</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 </head>
-<body class="spring" data-api-base="https://portfolio-message-api.yawencao55.workers.dev" data-turnstile-sitekey="0x4AAAAAACl9tzwBpieRjx42">
+<body class="spring">
 <!-- SVG Filters -->
 <svg style="position:absolute;width:0;height:0">
   <defs>
@@ -737,11 +737,6 @@
       </div>
     </div>
 
-    <button class="btn btn-primary contact-msg-btn">
-      <span class="btn-sparkle"></span>
-      想对我说什么？💌
-    </button>
-
     <!-- Seasonal ground effect -->
     <div class="contact-ground">
       <svg class="ground-svg" viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -751,28 +746,6 @@
       </svg>
       <!-- Seasonal decorations rendered by JS -->
       <div id="groundDecorations"></div>
-    </div>
-
-    <!-- Message Modal -->
-    <div id="messageModal" class="message-modal">
-      <div class="message-modal-content">
-        <button class="message-modal-close">&times;</button>
-        <h3>给亚雯留言 ✉️</h3>
-        <p class="message-modal-hint">有任何想法、建议或合作意向，欢迎留言~</p>
-        <form id="messageForm">
-          <input type="text" id="msgName" placeholder="你的名字" maxlength="40" autocomplete="name" required />
-          <input type="email" id="msgEmail" placeholder="你的邮箱（选填）" maxlength="120" autocomplete="email" />
-          <textarea id="msgContent" placeholder="想说的话..." rows="4" maxlength="1000" required></textarea>
-          <input type="text" id="msgWebsite" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
-          <div id="turnstileWidget" class="captcha-box"></div>
-          <p id="msgStatus" class="message-status" aria-live="polite"></p>
-          <button type="submit" id="msgSubmitBtn" class="btn btn-primary">发送留言</button>
-        </form>
-        <div id="msgSuccess" class="message-success" style="display:none">
-          <span>🌸</span>
-          <p>谢谢你的留言！我会尽快回复~</p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -806,8 +779,7 @@
 </div>
 </div>
 
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
-<script src="script.js?v=4"></script>
+<script src="script.js?v=6"></script>
 <script src="cat.js?v=5"></script>
 </body>
 </html>

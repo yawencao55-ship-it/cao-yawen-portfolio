@@ -134,18 +134,6 @@ function previewTree(dateStr) {
 var currentSeason, seasonConfig;
 var lightboxImages = [];
 var lightboxIndex = 0;
-var MESSAGE_API_TIMEOUT_MS = 12000;
-var APP_CONFIG = {
-  apiBase: '',
-  turnstileSiteKey: ''
-};
-var turnstileWidgetId = null;
-
-function readAppConfig() {
-  var body = document.body;
-  APP_CONFIG.apiBase = ((body.getAttribute('data-api-base') || '').trim()).replace(/\/+$/, '');
-  APP_CONFIG.turnstileSiteKey = (body.getAttribute('data-turnstile-sitekey') || '').trim();
-}
 
 function bindUiEvents() {
   var enterBtn = document.getElementById('enterBtn');
@@ -156,9 +144,6 @@ function bindUiEvents() {
 
   var backToTopBtn = document.getElementById('backToTop');
   if (backToTopBtn) backToTopBtn.addEventListener('click', scrollToTop);
-
-  var messageBtn = document.querySelector('.contact-msg-btn');
-  if (messageBtn) messageBtn.addEventListener('click', openMessageModal);
 
   var lightbox = document.getElementById('lightbox');
   if (lightbox) lightbox.addEventListener('click', closeLightbox);
@@ -171,22 +156,6 @@ function bindUiEvents() {
 
   var lightboxNext = document.querySelector('.lightbox-next');
   if (lightboxNext) lightboxNext.addEventListener('click', nextImage);
-
-  var messageModal = document.getElementById('messageModal');
-  if (messageModal) messageModal.addEventListener('click', closeMessageModal);
-
-  var messageModalContent = document.querySelector('.message-modal-content');
-  if (messageModalContent) {
-    messageModalContent.addEventListener('click', function(e) {
-      e.stopPropagation();
-    });
-  }
-
-  var messageModalClose = document.querySelector('.message-modal-close');
-  if (messageModalClose) messageModalClose.addEventListener('click', closeMessageModal);
-
-  var messageForm = document.getElementById('messageForm');
-  if (messageForm) messageForm.addEventListener('submit', submitMessage);
 
   document.querySelectorAll('.work-card-img img, .work-thumbs img').forEach(function(img) {
     img.addEventListener('click', function() {
@@ -206,7 +175,6 @@ function init() {
   currentSeason = getCurrentSeason();
   seasonConfig = SEASONS[currentSeason];
   document.body.className = currentSeason;
-  readAppConfig();
 
   var iconEl = document.getElementById('seasonIcon');
   if (iconEl) iconEl.textContent = seasonConfig.icon;
@@ -665,213 +633,6 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeLightbox(e);
   if (e.key === 'ArrowLeft') prevImage(e);
   if (e.key === 'ArrowRight') nextImage(e);
-});
-
-// ===== Message Modal =====
-function sanitizeMessageField(value, maxLen) {
-  var text = (value || '')
-    .replace(/[\u0000-\u001F\u007F]/g, '')
-    .replace(/[<>]/g, '')
-    .trim();
-  return text.slice(0, maxLen);
-}
-
-function isValidEmail(email) {
-  if (!email) return true;
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function setMessageStatus(message, type) {
-  var status = document.getElementById('msgStatus');
-  if (!status) return;
-  status.textContent = message || '';
-  status.classList.remove('error', 'success');
-  if (type) status.classList.add(type);
-}
-
-function renderTurnstileWidget() {
-  var box = document.getElementById('turnstileWidget');
-  if (!box) return;
-  if (!APP_CONFIG.turnstileSiteKey) {
-    setMessageStatus('验证码未配置，请联系站点管理员。', 'error');
-    return;
-  }
-  if (!window.turnstile || typeof window.turnstile.render !== 'function') return;
-  if (turnstileWidgetId !== null) return;
-  turnstileWidgetId = window.turnstile.render(box, {
-    sitekey: APP_CONFIG.turnstileSiteKey,
-    theme: 'light',
-    action: 'message_submit',
-    callback: function() { setMessageStatus('', ''); },
-    'error-callback': function() { setMessageStatus('验证码加载失败，请刷新后重试。', 'error'); },
-    'expired-callback': function() { setMessageStatus('验证码已过期，请重新验证。', 'error'); }
-  });
-}
-
-function resetTurnstileWidget() {
-  if (window.turnstile && turnstileWidgetId !== null) {
-    window.turnstile.reset(turnstileWidgetId);
-  }
-}
-
-function ensureTurnstileReady(retryCount) {
-  renderTurnstileWidget();
-  if (turnstileWidgetId !== null) {
-    resetTurnstileWidget();
-    return;
-  }
-  if (retryCount >= 20) {
-    setMessageStatus('验证码加载超时，请刷新页面后重试。', 'error');
-    return;
-  }
-  setTimeout(function() {
-    ensureTurnstileReady(retryCount + 1);
-  }, 250);
-}
-
-function getTurnstileToken() {
-  if (!window.turnstile || turnstileWidgetId === null) return '';
-  var token = window.turnstile.getResponse(turnstileWidgetId);
-  return token ? token.trim() : '';
-}
-
-async function postMessageToApi(payload) {
-  if (!APP_CONFIG.apiBase) {
-    return { ok: false, status: 0, body: { error: '留言服务未配置，请联系站点管理员。' } };
-  }
-
-  var controller = new AbortController();
-  var timeout = setTimeout(function() {
-    controller.abort();
-  }, MESSAGE_API_TIMEOUT_MS);
-
-  try {
-    var resp = await fetch(APP_CONFIG.apiBase + '/api/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      signal: controller.signal
-    });
-    var body = {};
-    try {
-      body = await resp.json();
-    } catch (err) {
-      body = {};
-    }
-    return { ok: resp.ok, status: resp.status, body: body };
-  } finally {
-    clearTimeout(timeout);
-  }
-}
-
-function openMessageModal() {
-  var modal = document.getElementById('messageModal');
-  var form = document.getElementById('messageForm');
-  var success = document.getElementById('msgSuccess');
-  if (!modal) return;
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-  // Reset form state
-  if (form) {
-    form.style.display = 'block';
-    form.reset();
-  }
-  if (success) success.style.display = 'none';
-  setMessageStatus('', '');
-  ensureTurnstileReady(0);
-}
-
-function closeMessageModal(e) {
-  var modal = document.getElementById('messageModal');
-  if (!modal) return;
-  modal.classList.remove('active');
-  document.body.style.overflow = 'auto';
-}
-
-async function submitMessage(e) {
-  e.preventDefault();
-  var nameEl = document.getElementById('msgName');
-  var emailEl = document.getElementById('msgEmail');
-  var contentEl = document.getElementById('msgContent');
-  var websiteEl = document.getElementById('msgWebsite');
-  var form = document.getElementById('messageForm');
-  var success = document.getElementById('msgSuccess');
-  var submitBtn = document.getElementById('msgSubmitBtn');
-  if (!nameEl || !emailEl || !contentEl || !form || !success) return;
-
-  var name = sanitizeMessageField(nameEl.value, 40);
-  var email = sanitizeMessageField(emailEl.value, 120);
-  var content = sanitizeMessageField(contentEl.value, 1000);
-  var website = sanitizeMessageField(websiteEl ? websiteEl.value : '', 200);
-  var captchaToken = getTurnstileToken();
-  var originalBtnText = submitBtn ? submitBtn.textContent : '';
-
-  setMessageStatus('', '');
-
-  if (!name || !content) {
-    setMessageStatus('请填写姓名和留言内容。', 'error');
-    return;
-  }
-  if (!isValidEmail(email)) {
-    setMessageStatus('邮箱格式不正确，请检查后再提交。', 'error');
-    return;
-  }
-  if (!captchaToken) {
-    setMessageStatus('请先完成人机验证。', 'error');
-    return;
-  }
-
-  if (submitBtn) {
-    submitBtn.disabled = true;
-    submitBtn.textContent = '发送中...';
-  }
-
-  var payload = {
-    name: name,
-    email: email,
-    content: content,
-    website: website,
-    captchaToken: captchaToken
-  };
-
-  try {
-    var result = await postMessageToApi(payload);
-    if (!result.ok) {
-      if (result.status === 429) {
-        setMessageStatus(result.body.error || '提交过于频繁，请稍后再试。', 'error');
-      } else {
-        setMessageStatus(result.body.error || '提交失败，请稍后重试。', 'error');
-      }
-      resetTurnstileWidget();
-      return;
-    }
-
-    form.style.display = 'none';
-    success.style.display = 'block';
-    setMessageStatus('留言已成功提交。', 'success');
-    resetTurnstileWidget();
-    setTimeout(function() { closeMessageModal({}); }, 2500);
-  } catch (err) {
-    if (err && err.name === 'AbortError') {
-      setMessageStatus('请求超时，请稍后重试。', 'error');
-    } else {
-      setMessageStatus('网络异常，请稍后重试。', 'error');
-    }
-    resetTurnstileWidget();
-  } finally {
-    if (submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalBtnText;
-    }
-  }
-}
-
-// Close modal on Escape
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    var modal = document.getElementById('messageModal');
-    if (modal && modal.classList.contains('active')) closeMessageModal(e);
-  }
 });
 
 // ===== Scroll Progress Bar =====
